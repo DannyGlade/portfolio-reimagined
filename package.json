@@ -5,10 +5,9 @@
    "type": "module",
    "scripts": {
       "dev": "vite",
-      "build": "tsc -b && vite build --base /${repository}",
+      "build": "tsc -b && vite build",
       "lint": "eslint .",
       "preview": "vite preview",
-      "predeploy": "yarn build --base /${repository}",
       "deploy": "gh-pages -d dist"
    },
    "homepage": "https://<github_username>.github.io/<app_repo>",

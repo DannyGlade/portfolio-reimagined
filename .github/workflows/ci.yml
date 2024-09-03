@@ -24,12 +24,10 @@ jobs:
            uses: ./.github/actions/setup
 
          - name: Prepare build
-           run: yarn build
+           run: yarn build --base ${{ github.repository.name }}
 
          - name: Deploy
-           run: yarn deploy
-           # env:
-           #   user_name: 'github-actions[bot]'
-           #   user_email: 'github-actions[bot]@users.noreply.github.com'
-           #   repository: ${{ github.repository }}
-           #   github_token: ${{ secrets.GITHUB_TOKEN }}
+           uses: peaceiris/actions-gh-pages@v3
+           with:
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              publish_dir: ./dist
