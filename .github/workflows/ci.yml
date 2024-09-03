@@ -1,39 +1,35 @@
 name: CI
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  merge_group:
-    types:
-      - checks_requested
+   push:
+      branches:
+         - main
+   pull_request:
+      branches:
+         - main
+   merge_group:
+      types:
+         - checks_requested
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+   build:
+      runs-on: ubuntu-latest
+      strategy:
+         matrix:
+            node-version: [14.x]
+      steps:
+         - name: Checkout Repository
+           uses: actions/checkout@v3
 
-      - name: Setup
-        uses: ./.github/actions/setup
+         - name: Setup
+           uses: ./.github/actions/setup
 
-      - name: Prepare build
-        run: yarn build
+         - name: Prepare build
+           run: yarn build
 
-      - name: Deploy
-        run: |
-          git config --global user.name $user_name
-          git config --global user.email $user_email
-          git remote set-url origin https://${github_token}@github.com/${repository}
-          yarn deploy"
-        env:
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          repository: ${{ github.repository }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+         - name: Deploy
+           run: yarn deploy
+           # env:
+           #   user_name: 'github-actions[bot]'
+           #   user_email: 'github-actions[bot]@users.noreply.github.com'
+           #   repository: ${{ github.repository }}
+           #   github_token: ${{ secrets.GITHUB_TOKEN }}
